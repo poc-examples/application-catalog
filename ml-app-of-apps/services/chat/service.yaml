@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-window-service
+spec:
+  selector:
+    app: chat-window
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

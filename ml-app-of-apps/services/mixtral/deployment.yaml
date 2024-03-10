@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mixtral7b
+  namespace: collective
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: mixtral7b
+  template:
+    metadata:
+      labels:
+        app: mixtral7b
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registry-credentials
+      volumes:
+      - name: ai-repos-pvc
+        persistentVolumeClaim:
+          claimName: ai-repos-pvc
+      containers:
+      - name: mixtral7b
+        image: "docker.io/cengleby86/mixtral7b:latest"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: ai-repos-pvc
+          mountPath: /ai-models/mistralai
+        resources:
+          limits:
+            nvidia.com/gpu: 4
+          requests:
+            memory: "8Gi"
+            cpu: "2"
+            # ephemeral-storage: "90Gi"
+        env:
+          - name: CUDA_VISIBLE_DEVICES
+            value: "0,1"

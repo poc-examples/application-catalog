@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-window
+  namespace: chat-window
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-window
+  template:
+    metadata:
+      labels:
+        app: chat-window
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registry-credentials
+      containers:
+      - name: chat-window
+        image: "docker.io/cengleby86/chat-window:latest"
+        ports:
+        - containerPort: 8080

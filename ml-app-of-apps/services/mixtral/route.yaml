@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: mixtral
+  name: mixtral
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: mixtra7b-service
+    weight: 100
+  wildcardPolicy: None
