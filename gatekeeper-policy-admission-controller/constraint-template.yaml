@@ -1,0 +1,24 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8sdisallowclustersecretstore
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sDisallowClusterSecretStore
+      validation:
+        openAPIV3Schema:
+          properties: {}
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package kubernetes.admission
+
+        violation[{"msg": message, "details": details}] {
+            input.review.kind.kind == "ExternalSecret"
+            clusterSecretStoreRef := input.review.object.spec.secretStoreRef.kind
+            clusterSecretStoreRef == "ClusterSecretStore"
+            message := sprintf("Creation of ExternalSecrets referencing a ClusterSecretStore is not allowed: %v", [input.review.object.metadata.name])
+            details := {"creator": input.review.userInfo.username, "namespace": input.review.namespace}
+        }

@@ -1,0 +1,9 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sDisallowClusterSecretStore
+metadata:
+  name: disallow-cluster-secret-store
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["ExternalSecret"]
