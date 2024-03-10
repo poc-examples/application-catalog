@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: weaviate-route
+  namespace: weaviate
+  labels:
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/name: weaviate
+spec:
+  to:
+    kind: Service
+    name: weaviate
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+  port:
+    targetPort: http

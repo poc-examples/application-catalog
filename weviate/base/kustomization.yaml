@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: weaviate
+    repo: https://weaviate.github.io/weaviate-helm
+    version: 16.7.0
+    releaseName: weaviate
+    namespace: weaviate
+    valuesInline:
+      modules:
+        text2vec-openai:
+          enabled: true
+        text2vec-huggingface:
+          enabled: true
+      initContainers:
+        sysctlInitContainer:
+          enabled: false
+      authentication:
+        anonymous_access:
+          enabled: false
+        apikey:
+          enabled: true
+          allowed_keys:
+            - readOnly-api-key
+            - admin-api-key
+          users:
+            - api-key-user-readOnly
+            - api-key-user-admin
