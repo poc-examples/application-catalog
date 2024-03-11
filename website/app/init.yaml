@@ -8,7 +8,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
     argocd-image-updater.argoproj.io/image-list: frontend=default-route-openshift-image-registry.apps.xr42gryb.eastus.aroapp.io/pipelines/chat-window
     argocd-image-updater.argoproj.io/frontend.force-update: "true"
-    # argocd-image-updater.argoproj.io/frontend.pull-secret: pullsecret:openshift-gitops/test-dockerhub-secret
+    argocd-image-updater.argoproj.io/frontend.pull-secret: pullsecret:openshift-gitops/reg-creds
     argocd-image-updater.argoproj.io/write-back-method: git:secret:openshift-gitops/git-creds
     argocd-image-updater.argoproj.io/frontend.update-strategy: latest
     argocd-image-updater.argoproj.io/git-branch: main
@@ -30,3 +30,4 @@ spec:
       - CreateNamespace=true
     automated:
       prune: true
+      insecure-skip-tls-verify: true
