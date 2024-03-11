@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-website-deployment
+  name: chat-window
   labels:
-    app: httpd
+    app: chat-window
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: httpd
+      app: chat-window
   template:
     metadata:
       labels:
-        app: httpd
+        app: chat-window
     spec:
       containers:
-      - name: httpd
-        image: docker.io/cengleby86/test-image:latest
+      - name: chat-window
+        image: default-route-openshift-image-registry.apps.xr42gryb.eastus.aroapp.io/pipelines/chat-window:latest
         ports:
         - containerPort: 8080
-      imagePullSecrets:
-      - name: dockerhub-secret

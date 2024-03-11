@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chat-window
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: chat-window
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://github.com/poc-examples/application-catalog'
+    path: 'website/overlays'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: openshift-gitops
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
