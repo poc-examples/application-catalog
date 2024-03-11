@@ -11,4 +11,4 @@ commonLabels:
 
 images:
 - name: default-route-openshift-image-registry.apps.xr42gryb.eastus.aroapp.io/pipelines/chat-window
-  newTag: "latest"
+  newTag: "9f8abd4"
