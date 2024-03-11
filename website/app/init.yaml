@@ -4,12 +4,21 @@ kind: Application
 metadata:
   name: chat-window
   namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd-image-updater.argoproj.io/image-list: frontend=default-route-openshift-image-registry.apps.xr42gryb.eastus.aroapp.io/pipelines/chat-window
+    argocd-image-updater.argoproj.io/frontend.force-update: "true"
+    # argocd-image-updater.argoproj.io/frontend.pull-secret: pullsecret:openshift-gitops/test-dockerhub-secret
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:openshift-gitops/git-creds
+    argocd-image-updater.argoproj.io/frontend.update-strategy: latest
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/write-back-target: kustomization
 spec:
   destination:
     namespace: chat-window
     server: 'https://kubernetes.default.svc'
   source:
-    repoURL: 'https://github.com/poc-examples/application-catalog'
+    repoURL: 'https://gitlab.apps.xr42gryb.eastus.aroapp.io/root/application-catalog'
     path: 'website/overlays'
     targetRevision: HEAD
   project: default
