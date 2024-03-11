@@ -3,7 +3,7 @@ kind: Kustomization
 
 # Base resources to be imported from the base configuration
 bases:
-- ../../base
+- ../base
 
 # Common labels for this overlay
 commonLabels:
