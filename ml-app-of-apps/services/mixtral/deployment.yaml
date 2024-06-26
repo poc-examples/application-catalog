@@ -19,7 +19,7 @@ spec:
           effect: "NoSchedule"
       restartPolicy: Always
       imagePullSecrets:
-        - name: registry-credentials
+        - name: docker-creds
       volumes:
       - name: ai-repos-pvc
         persistentVolumeClaim:
