@@ -14,7 +14,7 @@ spec:
         app: mixtral7b
     spec:
       tolerations:
-        - key: "nvidia.com/gpu"
+        - key: "nvidia.com/gpu.present"
           operator: "Exists"
           effect: "NoSchedule"
       restartPolicy: Always
