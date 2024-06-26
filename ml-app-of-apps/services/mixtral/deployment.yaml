@@ -13,6 +13,10 @@ spec:
       labels:
         app: mixtral7b
     spec:
+      tolerations:
+        - key: "nvidia.com/gpu"
+          operator: "Exists"
+          effect: "NoSchedule"
       restartPolicy: Always
       imagePullSecrets:
         - name: registry-credentials
