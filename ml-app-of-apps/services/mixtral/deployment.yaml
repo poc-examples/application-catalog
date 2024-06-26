@@ -34,11 +34,11 @@ spec:
           mountPath: /ai-models/mistralai
         resources:
           limits:
-            nvidia.com/gpu: 4
+            nvidia.com/gpu: 1
           requests:
             memory: "8Gi"
             cpu: "2"
             # ephemeral-storage: "90Gi"
         env:
           - name: CUDA_VISIBLE_DEVICES
-            value: "0,1"
+            value: "0"
